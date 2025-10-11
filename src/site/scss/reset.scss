@@ -1,0 +1,69 @@
+@use "sass:color";
+@use 'variables.scss' as v;
+
+body {
+    padding: 0;
+    margin: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: v.$color-text;
+    font-family: v.$font-primary;
+    font-weight: 600;
+    margin: 2rem 0 1rem 0;
+}
+
+h1 {
+    margin-top: 0;
+    font-size: 2.5rem;
+}
+h2 {
+    font-size: 2rem;
+}
+h3 {
+    font-size: 1.75rem;
+}
+h4 {
+    font-size: 1.5rem;
+}
+h5 {
+    font-size: 1.25rem;
+}
+h6 {
+    font-size: 1rem;
+}
+p {
+    color: v.$color-text;
+    font-family: v.$font-primary;
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+ul {
+    padding-left: 1.5rem;
+    margin: 0 0 1rem 0;
+}
+ul li {
+    margin-bottom: 0.5rem;
+    font-family: v.$font-primary;
+}
+
+a {
+    color: v.$color-accent;
+    text-decoration: none;
+    font-family: v.$font-primary;
+    font-weight: 500;
+
+    &:hover {
+        color: color.adjust(v.$color-accent, $lightness: -10%);
+        text-decoration: underline;
+        transition: color 0.2s;
+    }
+}
+
+figure {
+    img {
+        max-width: 100%;
+    }
+}

@@ -1,61 +1,182 @@
 require("dotenv").config();
 
-const cleanCSS = require("clean-css");
 const fs = require("fs");
+const path = require('path');
 const pluginRSS = require("@11ty/eleventy-plugin-rss");
 const localImages = require("eleventy-plugin-local-images");
 const lazyImages = require("eleventy-plugin-lazyimages");
 const ghostContentAPI = require("@tryghost/content-api");
+const readingTime = require('eleventy-plugin-reading-time');
+const syntaxHighlight = require('@11ty/eleventy-plugin-syntaxhighlight');
+const htmlMinTransform = require("./src/html-min-transform.js");
+const { DateTime } = require('luxon');
+const { JSDOM } = require("jsdom");
+const Prism = require("prismjs");
+const loadLanguages = require("prismjs/components/");
 
-const htmlMinTransform = require("./src/transforms/html-min-transform.js");
+// optional: preload common languages
+loadLanguages(['markup','css','clike','javascript','bash','json','yaml','markdown','typescript']);
+
+// helper to ensure a language is loaded
+function ensureLanguage(lang) {
+  if (!Prism.languages[lang]) {
+    try { loadLanguages([lang]); } catch(_) {}
+  }
+}
 
 // Init Ghost API
 const api = new ghostContentAPI({
   url: process.env.GHOST_API_URL,
   key: process.env.GHOST_CONTENT_API_KEY,
-  version: "v2"
+  version: "v2.0"
 });
 
 // Strip Ghost domain from urls
 const stripDomain = url => {
-  return url.replace(process.env.GHOST_API_URL, "");
+  return url
+    .replace(process.env.GHOST_API_URL, "")
+    .replace(process.env.SITE_URL || "", "")
+    .replace('https://www.ryanc.me', "");
 };
+
+const isDev = process.env.ELEVENTY_ENV === 'development';
+const isProd = process.env.ELEVENTY_ENV === 'production'
+
+const manifestPath = path.resolve(
+  __dirname,
+  'dist',
+  'assets',
+  'manifest.json'
+);
+
+const manifest = isDev
+  ? {
+      'main.js': '/assets/main.js',
+      'main.css': '/assets/main.css',
+    }
+  : JSON.parse(fs.readFileSync(manifestPath, { encoding: 'utf8' }));
 
 module.exports = function(config) {
   // Minify HTML
-  config.addTransform("htmlmin", htmlMinTransform);
+  if (isProd) {
+    config.addTransform("htmlmin", htmlMinTransform);
+  }
+
+  // syntax highlighting
+  config.addTransform("ghostPrism", (content, outputPath) => {
+    if (outputPath && outputPath.endsWith(".html")) {
+      const dom = new JSDOM(content);
+      const { document } = dom.window;
+
+      document.querySelectorAll("pre > code[class*='language-']").forEach(codeEl => {
+        const className = Array.from(codeEl.classList).find(c => c.startsWith("language-"));
+        if (!className) return;
+        const lang = className.replace("language-", "") || "markup";
+
+        ensureLanguage(lang);
+        const grammar = Prism.languages[lang] || Prism.languages.markup;
+
+        // Use textContent so HTML inside code isn’t treated as tags
+        const raw = codeEl.textContent;
+        const highlighted = Prism.highlight(raw, grammar, lang);
+
+        // Put result back; also mirror language on <pre>
+        codeEl.innerHTML = highlighted;
+        codeEl.parentElement.classList.add(`language-${lang}`);
+      });
+
+      return dom.serialize();
+    }
+    return content;
+  });
+
+
+  config.addNunjucksGlobal("getTag", function(tags, tagSlug) {
+    if (!tags) return null;
+    return tags.find(tag => tag.slug === tagSlug);
+  });
+
+  config.addNunjucksGlobal("getTagPosts", function(posts, tagSlug) {
+    if (!posts) return null;
+    // get posts with a matching tag
+    return posts.filter(post => post.tags.find(tag => tag.slug === tagSlug));
+  });
 
   // Assist RSS feed template
   config.addPlugin(pluginRSS);
 
   // Apply performance attributes to images
-  config.addPlugin(lazyImages, {
-    cacheFile: ""
-  });
+  // config.addPlugin(lazyImages, {
+  //   cacheFile: ""
+  // });
 
   // Copy images over from Ghost
-  config.addPlugin(localImages, {
-    distPath: "dist",
-    assetPath: "/assets/images",
-    selector: "img",
-    attribute: "data-src", // Lazy images attribute
-    verbose: false
+  // config.addPlugin(localImages, {
+  //   distPath: "dist",
+  //   assetPath: "/assets/images",
+  //   selector: "img",
+  //   attribute: "data-src", // Lazy images attribute
+  //   verbose: false
+  // });
+
+  // post reading time
+  config.addPlugin(readingTime);
+
+  // setup mermaid markdown highlighter
+  // const highlighter = config.markdownHighlighter;
+  // config.addMarkdownHighlighter((str, language) => {
+  //   if (language === 'mermaid') {
+  //     return `<pre class="mermaid">${str}</pre>`;
+  //   }
+  //   return highlighter(str, language);
+  // });
+
+  config.addFilter('excerpt', (post) => {
+    const content = post.replace(/(<([^>]+)>)/gi, '');
+    return content.substr(0, content.lastIndexOf(' ', 200)) + '...';
   });
 
-  // Inline CSS
-  config.addFilter("cssmin", code => {
-    return new cleanCSS({}).minify(code).styles;
+  config.addFilter('readableDate', (dateObj) => {
+    return DateTime.fromJSDate(dateObj, { zone: 'utc' }).toFormat(
+      'dd LLL yyyy'
+    );
+  });
+  config.addFilter('isoDate', (dateObj) => {
+    return DateTime.fromJSDate(dateObj, { zone: 'utc' }).toFormat(
+      'yyyy-LL-dd'
+    );
   });
 
-  config.addFilter("getReadingTime", text => {
-    const wordsPerMinute = 200;
-    const numberOfWords = text.split(/\s/g).length;
-    return Math.ceil(numberOfWords / wordsPerMinute);
+  config.addFilter('htmlDateString', (dateObj) => {
+    return DateTime.fromJSDate(dateObj, { zone: 'utc' }).toFormat('yyyy-LL-dd');
   });
 
-  // Date formatting filter
-  config.addFilter("htmlDateString", dateObj => {
-    return new Date(dateObj).toISOString().split("T")[0];
+  config.addFilter('dateToIso', (dateString) => {
+    return new Date(dateString).toISOString()
+  });
+
+  config.addFilter('head', (array, n) => {
+    if (n < 0) {
+      return array.slice(n);
+    }
+
+    return array.slice(0, n);
+  });
+
+  config.setDataDeepMerge(true);
+  config.addPassthroughCopy({ 'src/images': 'assets/images' });
+  config.addPassthroughCopy({ 'images/favicon.ico': 'favicon.ico' });
+
+  config.addShortcode('bundledcss', function () {
+    return manifest['main.css']
+      ? `<link href="${manifest['main.css']}" rel="stylesheet" />`
+      : '';
+  });
+
+  config.addShortcode('bundledjs', function () {
+    return manifest['main.js']
+      ? `<script src="${manifest['main.js']}"></script>`
+      : '';
   });
 
   // Don't ignore the same files ignored in the git repo
@@ -111,39 +232,39 @@ module.exports = function(config) {
     return collection;
   });
 
-  // Get all authors
-  config.addCollection("authors", async function(collection) {
-    collection = await api.authors
-      .browse({
-        limit: "all"
-      })
-      .catch(err => {
-        console.error(err);
-      });
+  // // Get all authors
+  // config.addCollection("authors", async function(collection) {
+  //   collection = await api.authors
+  //     .browse({
+  //       limit: "all"
+  //     })
+  //     .catch(err => {
+  //       console.error(err);
+  //     });
 
-    // Get all posts with their authors attached
-    const posts = await api.posts
-      .browse({
-        include: "authors",
-        limit: "all"
-      })
-      .catch(err => {
-        console.error(err);
-      });
+  //   // Get all posts with their authors attached
+  //   const posts = await api.posts
+  //     .browse({
+  //       include: "authors",
+  //       limit: "all"
+  //     })
+  //     .catch(err => {
+  //       console.error(err);
+  //     });
 
-    // Attach posts to their respective authors
-    collection.forEach(async author => {
-      const authorsPosts = posts.filter(post => {
-        post.url = stripDomain(post.url);
-        return post.primary_author.id === author.id;
-      });
-      if (authorsPosts.length) author.posts = authorsPosts;
+  //   // Attach posts to their respective authors
+  //   collection.forEach(async author => {
+  //     const authorsPosts = posts.filter(post => {
+  //       post.url = stripDomain(post.url);
+  //       return post.primary_author.id === author.id;
+  //     });
+  //     if (authorsPosts.length) author.posts = authorsPosts;
 
-      author.url = stripDomain(author.url);
-    });
+  //     author.url = stripDomain(author.url);
+  //   });
 
-    return collection;
-  });
+  //   return collection;
+  // });
 
   // Get all tags
   config.addCollection("tags", async function(collection) {
@@ -192,14 +313,17 @@ module.exports = function(config) {
           res.end();
         });
       }
-    }
+    },
+    files: [manifestPath] 
   });
 
   // Eleventy configuration
   return {
     dir: {
       input: "src",
-      output: "dist"
+      output: "dist",
+      layouts: "layouts",
+      includes: "partials",
     },
 
     // Files read by Eleventy, add as needed

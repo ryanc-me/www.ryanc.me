@@ -1,0 +1,19 @@
+@use "sass:color";
+@use '../site/scss/variables.scss' as v;
+
+.--tag-flag {
+    display: inline-block;
+    background-color: color.adjust(v.$color-background, $lightness: 5%);
+    border-radius: 3px;
+    padding: 0.075rem 0.5rem 0.2rem 0.5rem;
+
+    &:not(:last-child) {
+        margin-right: 0.5rem;
+    }
+
+    .tag-name {
+        font-size: 0.7rem;
+        text-decoration: none;
+        color: #FFFFFF;
+    }
+}

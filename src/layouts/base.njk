@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="canonical" href={{ page.url | url | absoluteUrl(site.url) }}>
+        <link rel="alternate" type="application/rss+xml" href="/feed.xml" title="Feed">
+
+        {% bundledcss %}
+
+        <!-- <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@700&display=swap" rel="stylesheet">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Sen:wght@400..800&display=swap" rel="stylesheet"> -->
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+
+        <title>
+            {%- if title -%}
+                {{ title }} – {{ site.title }}
+            {%- else -%}
+                {{ site.title }}{%- if site.description -%} – {{ site.description }}{%-endif -%}
+            {%- endif -%}
+        </title>
+
+        <link rel="icon" type= “image/x-icon” href="{{ site.icon }}">
+        <link rel="shortcut icon" type="image/png" href="{{ site.icon }}"/>
+
+        <meta property="og:title" content="{{  title or site.name | escape }}">
+        <meta property="og:site_name" content="{{ site.name }}"/>
+        <meta property="og:type" content="website"/>
+        <meta property="og:url" content="{{ site.url + page.url }}"/>
+        <meta name="twitter:card" content="summary_large_image">
+
+        {% if site.author.twitterHandle %}
+            <meta name="twitter:creator" content="@{{ site.author.twitterHandle | replace('@', '') }}"/>
+        {% endif %}
+    
+        {% set desc = site.description %}
+        {% if not desc %}
+            {% set desc = content | striptags | truncate(140) %}
+        {% endif %}
+        {% if desc %}
+            <meta name="description" content="{{ desc | escape  }}">
+            <meta property="og:description" content="{{ desc | escape }}">
+            <meta name="description" content="{{ desc | escape }}"/>
+        {% endif %}
+
+        {% if not socialImage %}
+            {% set socialImage = site.defaultSocialImage %}
+        {% endif %}
+        {% if socialImage %}
+            <meta property="og:image" content="{{ socialImage | url | absoluteUrl(site.url) }}"/>
+            <meta name="twitter:image" content="{{ socialImage | url | absoluteUrl(site.url) }}"/>
+        {% endif %}
+
+        {# Add mermaid -- start #}
+            {# <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+            <script>mermaid.initialize({startOnLoad:true});</script> #}
+        {# Add mermaid -- end #}
+
+		<link
+			href="https://unpkg.com/prismjs@1.20.0/themes/prism-okaidia.css"
+			rel="stylesheet"
+		/>
+
+        {{ site.codeinjection_head | safe if site.codeinjection_head }}
+        {{ codeinjection_head | safe if codeinjection_head }}
+    </head>
+    <body>
+        <header class="header">
+            <div class="container">
+                <div class="title">
+                    <a href="{{ '/' | url }}">
+                        <h1>{{ site.title }}</h1>
+                    </a>
+                </div>
+                <span id="burger-menu">
+                    <span></span>
+                </span>
+                <nav class="nav">
+                    <ul>
+                        {# {% for doc in collections.docs %}
+                            <li class="{{ doc.data.slug }}">
+                                <a href="{{ doc.url }}">{{ doc.data.title }}</a>
+                            </li>
+                        {% endfor %} #}
+                        <li class="about">
+                            <a href="{{ '/about' | url }}">about</a>
+                        </li>
+                        <li class="my-work">
+                            <a href="{{ '/my-work' | url }}">my work</a>
+                        </li>
+                        <li class="contact">
+                            <a href="{{ '/contact' | url }}">contact</a>
+                        </li>
+                        {# <li class="rss">
+                            <a href="{{ '/feed.xml' | url }}">rss</a>
+                        </li> #}
+                    </ul>
+                </nav>
+            </div>
+            <div class="border" />
+        </header>
+
+        <main class="main">
+            <div class="container">
+                {% block content %}{% endblock content %}
+            </div>
+        </main>
+
+        <footer class="footer">
+            
+        </div>
+
+        {% bundledjs %}
+    </body>
+</html>

@@ -1,0 +1,11 @@
+{% from "post-card.njk" import post_card %}
+
+{% macro post_list(posts) %}
+    <ul class="--post-list">
+        {% for post in posts %}
+            <li>
+                {{ post_card(post) }}
+            </li>
+        {% endfor %}
+    </ul>
+{% endmacro %}
