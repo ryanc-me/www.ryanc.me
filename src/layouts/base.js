@@ -1,10 +1,12 @@
 var burgerMenu = document.getElementById('burger-menu');
-
+var navClose = document.getElementById('nav-close');
 var overlay = document.querySelector('nav');
 
-burgerMenu.addEventListener('click', function() {
-  this.classList.toggle("close");
+function toggleMenu() {
+  burgerMenu.classList.toggle("close");
   overlay.classList.toggle("overlay");
-});
+  navClose.classList.toggle("visible");
+}
 
-console.log("test");
+navClose.addEventListener('click', toggleMenu);
+burgerMenu.addEventListener('click', toggleMenu);
