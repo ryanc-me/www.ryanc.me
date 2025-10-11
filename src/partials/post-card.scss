@@ -39,7 +39,7 @@ $font-size: 1.1rem;
         color: color.scale($color-date, $lightness: ($lightness + 30%));
         font-size: $font-size;
         font-family: v.$font-primary;
-        font-weight: 300;
+        font-weight: 400;
         flex-basis: 105px;
         flex-shrink: 0;
     }

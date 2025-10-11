@@ -1,5 +1,6 @@
 $font-primary: 'Work Sans', sans-serif;
-$font-secondary: 'Merriweather', sans-serif;
+$font-secondary: 'Inter', sans-serif;
+$font-accent: 'Red Hat Display', sans-serif;
 
 $color-background: #FFFFFE;
 $color-text: #181925;
@@ -8,10 +9,10 @@ $color-accent: #FF0022;
 $color-cta: #3E1929;
 
 $header-logo-color: $color-accent;
-$header-logo-font: 'Work Sans', sans-serif;
+$header-logo-font: $font-accent;
 
 $header-nav-color: #222222;
-$header-nav-font: 'Roboto', sans-serif;
+$header-nav-font: $font-accent;
 
 $color-header: $color-background;
 
