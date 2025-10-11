@@ -171,8 +171,6 @@ body {
             }
             nav {
                 z-index: 1;
-                width: 100vw;
-                max-width: 150px;
                 height: 100vh;
                 position: fixed;
                 right: -100%;
@@ -194,6 +192,7 @@ body {
                 ul {
                     flex-direction: column;
                     align-items: flex-end;
+                    padding: 1rem 0 1rem 2rem;
 
                     li {
                         font-size: 1.5rem;
