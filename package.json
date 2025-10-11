@@ -12,7 +12,7 @@
     "dev:site": "env ELEVENTY_ENV=development eleventy --serve",
     "build:assets": "webpack --mode production --config webpack.config.prod.js",
     "build:site": "env ELEVENTY_ENV=production eleventy",
-    "clean": "rm -rf ./dist"
+    "clean": "rm -rf ./dist/*"
   },
   "dependencies": {
     "@11ty/eleventy": "^2.0.1",
