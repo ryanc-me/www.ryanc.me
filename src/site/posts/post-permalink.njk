@@ -8,6 +8,7 @@ permalink: '{{ post.url }}'
 ---
 {% extends '../../layouts/base.njk' %}
 {% from "tag-flag.njk" import tag_flag %}
+{% from "utterances.njk" import utterances %}
 
 
 {% set title = post.title %}
@@ -39,19 +40,7 @@ permalink: '{{ post.url }}'
             </section>
         </section>
     </article>
-    <div class="utterances-container">
-
-        <script
-            src="https://utteranc.es/client.js"
-            repo="ryanc-me/www.ryanc.me"
-            issue-term="pathname"
-            label="comment"
-            theme="github-dark"
-            crossorigin="anonymous"
-            async>
-        </script>
-        <div id="utterances"></div>
-    </div>
+    {{ utterances() }}
 {% endblock %}
 
 {%- block seo -%}
