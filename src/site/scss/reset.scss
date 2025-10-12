@@ -60,13 +60,13 @@ ol li {
 }
 
 a {
-    color: v.$color-accent;
+    color: v.$color-links;
     text-decoration: none;
     font-family: v.$font-primary;
     font-weight: 500;
 
     &:hover {
-        color: color.adjust(v.$color-accent, $lightness: 10%);
+        color: color.adjust(v.$color-links, $lightness: 10%);
         text-decoration: underline;
         transition: color 0.2s;
     }

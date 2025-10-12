@@ -11,9 +11,11 @@ $font-accent: 'Red Hat Display', sans-serif;
 // $color-cta: #3E1929;
 
 $color-background: #1A1F16;
-$color-text: color.adjust(#EDE7E3, $lightness: -5%);
+// $color-text: color.adjust(#EDE7E3, $lightness: -5%);
+$color-text: #E7DFDA;
 $color-heading: #EDE7E3;
 $color-accent: #607B7D;
+$color-links: #BD82ED;
 $color-cta: #FFA62B;
 
 $header-logo-color: $color-accent;
