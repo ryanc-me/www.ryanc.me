@@ -107,7 +107,7 @@ pre {
         padding-right: initial;
     }
 }
-code {
+code:not([class]) {
     font-family: 'Source Code Pro', monospace;
     color: v.$color-text;
     background-color: #f0f0f0;
