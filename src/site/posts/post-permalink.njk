@@ -34,7 +34,7 @@ permalink: '{{ post.url }}'
                 <span class="date">{{ post.published_at | readableDate }}</span>
                 <span class="read-time">{{ post.html | readingTime }}</span>
             </div>
-            <section class="content-body load-external-scripts">
+            <section class="content-body load-external-scripts line-numbers">
                 {{ post.html | safe if post.html else "Post content not found" }}
             </section>
         </section>

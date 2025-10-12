@@ -102,6 +102,12 @@ figure {
     }
 }
 
+pre {
+    span.line-numbers-rows {
+        padding: inherit;
+        padding-right: initial;
+    }
+}
 code {
     font-family: 'Source Code Pro', monospace;
     color: v.$color-text;

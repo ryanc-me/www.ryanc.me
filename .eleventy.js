@@ -76,13 +76,37 @@ module.exports = function(config) {
         ensureLanguage(lang);
         const grammar = Prism.languages[lang] || Prism.languages.markup;
 
-        // Use textContent so HTML inside code isn’t treated as tags
         const raw = codeEl.textContent;
         const highlighted = Prism.highlight(raw, grammar, lang);
 
-        // Put result back; also mirror language on <pre>
         codeEl.innerHTML = highlighted;
-        codeEl.parentElement.classList.add(`language-${lang}`);
+
+        const pre = codeEl.parentElement;
+        pre.classList.add(`language-${lang}`);
+        pre.classList.add("line-numbers"); // enable line numbers
+
+        // Count lines (don’t count a trailing newline as an extra line)
+        const lineCount = (raw.match(/\n(?!$)/g) || []).length + 1;
+
+        // Create/update the rows container
+        let rows = pre.querySelector(".line-numbers-rows");
+        if (!rows) {
+          rows = document.createElement("span");
+          rows.className = "line-numbers-rows";
+          rows.setAttribute("aria-hidden", "true");
+          pre.appendChild(rows);
+        }
+        rows.innerHTML = "<span></span>".repeat(lineCount);
+
+        // Optional: support custom starting line via data-start on <pre>
+        const startAttr = pre.getAttribute("data-start");
+        if (startAttr) {
+          const start = parseInt(startAttr, 10);
+          if (!Number.isNaN(start)) {
+            // Many themes use CSS var --start to offset the counter
+            pre.style.setProperty("--start", String(start - 1));
+          }
+        }
       });
 
       return dom.serialize();
