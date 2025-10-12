@@ -118,9 +118,11 @@
         </header>
 
         <main class="main">
+            {% block content_before %}{% endblock content_before %}
             <div class="container">
                 {% block content %}{% endblock content %}
             </div>
+            {% block content_after %}{% endblock content_after %}
         </main>
 
         <footer class="footer">
