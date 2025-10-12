@@ -7,7 +7,7 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-    color: v.$color-text;
+    color: color.adjust(v.$color-text, $lightness: 5%);
     font-family: v.$font-primary;
     font-weight: 600;
     margin: 2rem 0 1rem 0;
@@ -41,6 +41,7 @@ p {
 }
 
 ul {
+    color: v.$color-text;
     padding-left: 2rem;
     margin: 0 0 1rem 0;
 }
@@ -49,6 +50,7 @@ ul li {
     font-family: v.$font-primary;
 }
 ol {
+    color: v.$color-text;
     padding-left: 2rem;
     margin: 0 0 1rem 0;
 }
@@ -64,7 +66,7 @@ a {
     font-weight: 500;
 
     &:hover {
-        color: color.adjust(v.$color-accent, $lightness: -10%);
+        color: color.adjust(v.$color-accent, $lightness: 10%);
         text-decoration: underline;
         transition: color 0.2s;
     }
@@ -93,11 +95,11 @@ figure {
     }
     figcaption {
         font-size: 0.9rem;
-        color: color.scale(v.$color-text, $lightness: 20%);
+        color: color.scale(v.$color-text, $lightness: -10%);
         text-align: center;
         padding: 0.5rem;
         font-family: v.$font-primary;
-        background-color: #f0f0f0;
+        background-color: color.adjust(v.$color-background, $lightness: 5%);
     }
 }
 
@@ -110,7 +112,7 @@ pre {
 code:not([class]) {
     font-family: 'Source Code Pro', monospace;
     color: v.$color-text;
-    background-color: #f0f0f0;
+    background-color: color.adjust(v.$color-background, $lightness: 5%);
     padding: 0.2rem 0.4rem;
     border-radius: 3px;
     font-size: 0.9rem;
@@ -118,14 +120,14 @@ code:not([class]) {
 
 blockquote {
     border-left: 4px solid color.adjust(v.$color-accent, $lightness: -20%);
-    margin: 1rem 0;
-    padding-left: 1rem;
+    margin: 1rem 1rem 1rem 0.5rem;
+    padding: 0.5rem 0 0.5rem 1rem;
     color: color.scale(v.$color-text, $lightness: 20%);
     font-style: italic;
 }
 
 hr {
     border: none;
-    border-top: 1px solid color.scale(v.$color-text, $lightness: 80%);
+    border-top: 1px solid v.$color-accent;
     margin: 2rem 0;
 }

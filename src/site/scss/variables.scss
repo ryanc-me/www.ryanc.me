@@ -1,17 +1,25 @@
+@use "sass:color";
+
 $font-primary: 'Work Sans', sans-serif;
 $font-secondary: 'Inter', sans-serif;
 $font-accent: 'Red Hat Display', sans-serif;
 
-$color-background: #FFFFFE;
-$color-text: #181925;
-$color-heading: #D6F9DD;
-$color-accent: #FF0022;
-$color-cta: #3E1929;
+// $color-background: #FFFFFE;
+// $color-text: #181925;
+// $color-heading: #D6F9DD;
+// $color-accent: #FF0022;
+// $color-cta: #3E1929;
+
+$color-background: #1A1F16;
+$color-text: color.adjust(#EDE7E3, $lightness: -5%);
+$color-heading: #EDE7E3;
+$color-accent: #607B7D;
+$color-cta: #FFA62B;
 
 $header-logo-color: $color-accent;
 $header-logo-font: $font-accent;
 
-$header-nav-color: #222222;
+$header-nav-color: $color-text;
 $header-nav-font: $font-accent;
 
 $color-header: $color-background;

@@ -16,7 +16,7 @@ body {
         width: 100%;
 
         .border {
-            border-top: 1px solid #eeeeee;
+            border-top: 1px solid #333333;
         }
         .container {
             max-width: 900px;
@@ -30,12 +30,11 @@ body {
         .title {
             a {
                 display: inline-block;
-                padding: 5px;
                 text-decoration: none;
 
                 &:hover {
                     h1 {
-                        color: color.adjust(v.$header-logo-color, $lightness: -10%);
+                        color: color.adjust(v.$header-logo-color, $lightness: 10%);
                         transition: color 0.2s;
                     }
                 }
@@ -63,7 +62,7 @@ body {
             span,
             span:before,
             span:after {
-                background: #333333;
+                background: v.$color-text;
                 display: block;
                 height: 2px;
                 opacity: 1;
@@ -180,7 +179,7 @@ body {
                 transition: all .3s ease-in-out;
                 padding-top: 75px;
                 padding-right: 20px;
-                background-color: white;
+                background-color: v.$color-background;
                 box-shadow: 0px 0px 15px -3px rgba(0,0,0,0.1);
 
                 &.overlay {
