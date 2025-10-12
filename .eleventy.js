@@ -13,6 +13,20 @@ const { DateTime } = require('luxon');
 const { JSDOM } = require("jsdom");
 const Prism = require("prismjs");
 const loadLanguages = require("prismjs/components/");
+const Image = require("@11ty/eleventy-img");
+const posthtml = require("posthtml");
+
+async function imageShortcode(src, alt = "", sizes = "(min-width: 768px) 768px, 100vw") {
+  const metadata = await Image(src, {
+    widths: [320, 640, 960, 1280, 1920],
+    formats: ["avif", "webp", "jpeg"],
+    urlPath: "/assets/images/",
+    outputDir: "./dist/assets/images/",
+  });
+  return Image.generateHTML(metadata, { alt, sizes, loading: "lazy", decoding: "async" });
+}
+
+
 
 // optional: preload common languages
 loadLanguages(['markup','css','clike','javascript','bash','json','yaml','markdown','typescript']);
@@ -113,6 +127,37 @@ module.exports = function(config) {
     }
     return content;
   });
+
+  // images
+  config.addTransform("rewrite-images", async (content, outputPath) => {
+    if (!outputPath || !outputPath.endsWith(".html")) return content;
+
+    const urlBase = "https://www.ryanc.me";
+    const result = await posthtml([
+      (tree) => {
+        const tasks = [];
+        tree.match({ tag: "img" }, (node) => {
+          const src = node?.attrs?.src;
+          if (!src) return node;
+          const abs = src.startsWith("http") ? src : new URL(src, urlBase).href;
+          console.log("Processing image", abs);
+          const alt = node?.attrs?.alt || "";
+          tasks.push(
+            imageShortcode(abs, alt).then(html => {
+              // Replace the node with raw HTML
+              node.tag = false;
+              node.content = [html];
+              node.attrs = {};
+            })
+          );
+          return node;
+        });
+        return Promise.all(tasks).then(() => tree);
+      }
+    ]).process(content);
+    return result.html;
+  });
+
 
 
   config.addNunjucksGlobal("getTag", function(tags, tagSlug) {
