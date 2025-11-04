@@ -1,6 +1,9 @@
 @use "sass:color";
 @use 'variables.scss' as v;
 
+$font-size-content: 1.2rem;
+$line-height-content: 1.6;
+
 body {
     padding: 0;
     margin: 0;
@@ -35,12 +38,14 @@ h6 {
 p {
     color: v.$color-text;
     font-family: v.$font-primary;
-    font-size: 1rem;
-    line-height: 1.6;
+    font-size: $font-size-content;
+    line-height: $line-height-content;
     margin-bottom: 1rem;
 }
 
 ul {
+    font-size: $font-size-content;
+    line-height: $line-height-content;
     color: v.$color-text;
     padding-left: 2rem;
     margin: 0 0 1rem 0;
@@ -50,6 +55,8 @@ ul li {
     font-family: v.$font-primary;
 }
 ol {
+    font-size: $font-size-content;
+    line-height: $line-height-content;
     color: v.$color-text;
     padding-left: 2rem;
     margin: 0 0 1rem 0;
@@ -130,4 +137,30 @@ hr {
     border: none;
     border-top: 1px solid v.$color-accent;
     margin: 2rem 0;
+}
+
+table {
+    font-family: v.$font-primary;
+    font-size: $font-size-content;
+    color: v.$color-text;
+    width: 100%;
+    border-collapse: collapse;
+
+    thead {
+        th {
+            font-family: v.$font-primary;
+            font-weight: 600;
+            padding: 0.5rem;
+            text-align: left;
+            border-bottom: 1px solid v.$color-accent;
+        }
+
+    }
+    tbody {
+        td {
+            font-family: v.$font-primary;
+            padding: 0.5rem;
+            border-bottom: 1px solid color.adjust(v.$color-accent, $lightness: -20%);
+        }
+    }
 }
