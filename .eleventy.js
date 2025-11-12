@@ -139,6 +139,7 @@ module.exports = function(config) {
         tree.match({ tag: "img" }, (node) => {
           const src = node?.attrs?.src;
           if (!src) return node;
+          if (src.endsWith(".svg")) return node; // skip SVGs
           const abs = src.startsWith("http") ? src : new URL(src, urlBase).href;
           console.log("Processing image", abs);
           const alt = node?.attrs?.alt || "";

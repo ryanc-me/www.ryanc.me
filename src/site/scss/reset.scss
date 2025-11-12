@@ -164,3 +164,38 @@ table {
         }
     }
 }
+
+.kg-callout-card {
+    background-color: color.adjust(v.$color-background, $lightness: 5%);
+    border-left: 4px solid v.$color-accent;
+    padding: 1rem;
+    margin: 1.5rem 0;
+
+    &.kg-callout-card-blue {
+        $color: #152831;
+        background-color: $color;
+    }
+    &.kg-callout-card-grey {
+        $color: #24272a;
+        background-color: $color;
+    }
+    &.kg-callout-card-green {
+        $color: #182a1e;
+        background-color: $color;
+    }
+
+    .kg-callout-emoji {
+        display: inline;
+        font-size: $font-size-content;
+        line-height: 1;
+        margin-right: 0.5rem;
+        vertical-align: middle;
+    }
+    .kg-callout-text {
+        display: inline;
+        color: v.$color-text;
+        font-family: v.$font-primary;
+        font-size: $font-size-content;
+        line-height: $line-height-content;
+    }
+}
