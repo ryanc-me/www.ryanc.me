@@ -63,7 +63,7 @@ body {
             span:after {
                 background: var(--theme-color-text);
                 display: block;
-                height: 2px;
+                height: 0.1rem;
                 opacity: 1;
                 position: absolute;
                 transition: 0.3s ease-in-out;
@@ -117,7 +117,7 @@ body {
                 padding: 0;
                 margin: 0;
                 font-family: var(--font-heading);
-                font-size: 1.2rem;
+                font-size: 1.2rem;a
 
                 li {
                     &:not(:last-child) {
