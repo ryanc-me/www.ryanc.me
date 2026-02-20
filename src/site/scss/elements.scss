@@ -117,7 +117,7 @@ pre {
     }
 }
 code:not([class]) {
-    font-family: 'Source Code Pro', monospace;
+    font-family: var(--font-mono);
     color: var(--theme-color-text-muted);
     background-color: var(--theme-color-surface);
     padding: 0.2rem 0.4rem;
