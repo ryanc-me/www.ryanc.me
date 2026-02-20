@@ -4,14 +4,10 @@ permalink: /
 {% extends '../layouts/base.njk' %}
 {% from "post-list.njk" import post_list %}
 
-{% set title = "" %}
+{% set full_title = site.title %}
+{% set description = site.description %}
 
 {% block content %}
-    {% if site.description %}
-        <div class="description">
-            {{ site.description }}
-        </div>
-    {% endif %}
     {% set posts = collections.posts | head(-10) %}
     {{ post_list(posts) }}
 {% endblock%}

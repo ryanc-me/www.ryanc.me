@@ -13,43 +13,37 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 
-        <title>
-            {%- if title -%}
-                {{ title }} – {{ site.title }}
-            {%- else -%}
-                {{ site.title }}{%- if site.description -%} – {{ site.description }}{%-endif -%}
-            {%- endif -%}
-        </title>
+        {% if title and not full_title %}
+            {% set full_title = title + " – " + site.title %}
+        {% endif %}
+        <title>{{ full_title }}</title>
 
         <link rel="icon" type= “image/x-icon” href="{{ site.icon }}">
         <link rel="shortcut icon" type="image/png" href="{{ site.icon }}"/>
 
-        <meta property="og:title" content="{{  title or site.name | escape }}">
-        <meta property="og:site_name" content="{{ site.name }}"/>
-        <meta property="og:type" content="website"/>
-        <meta property="og:url" content="{{ site.url + page.url }}"/>
-        <meta name="twitter:card" content="summary_large_image">
-
-        {% if site.author.twitterHandle %}
-            <meta name="twitter:creator" content="@{{ site.author.twitterHandle | replace('@', '') }}"/>
-        {% endif %}
+        <meta itemprop="name" content="{{ full_title | escape }}">
+        <meta property="og:title" content="{{ full_title | escape }}">
+        <meta name="twitter:title" content="{{ full_title | escape }}">
     
-        {% set desc = site.description %}
-        {% if not desc %}
-            {% set desc = content | striptags | truncate(140) %}
-        {% endif %}
-        {% if desc %}
-            <meta name="description" content="{{ desc | escape  }}">
-            <meta property="og:description" content="{{ desc | escape }}">
-            <meta name="description" content="{{ desc | escape }}"/>
+        <link rel="author" href="{{ site.url }}/about">
+        <link rel="publisher" href="{{ site.url }}">
+
+        <meta property="og:type" content="{{ page_type or 'website' }}"/>
+        <meta property="og:url" content="{{ site.url + page.url }}"/>
+
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:url" content="{{ site.url + page.url }}">
+
+        {% if feature_image %}
+            <meta itemprop="image" content="{{ feature_image | url | absoluteUrl(site.url) }}">
+            <meta property="og:image" content="{{ feature_image | url | absoluteUrl(site.url) }}"/>
+            <meta name="twitter:image" content="{{ feature_image | url | absoluteUrl(site.url) }}"/>
         {% endif %}
 
-        {% if not socialImage %}
-            {% set socialImage = site.defaultSocialImage %}
-        {% endif %}
-        {% if socialImage %}
-            <meta property="og:image" content="{{ socialImage | url | absoluteUrl(site.url) }}"/>
-            <meta name="twitter:image" content="{{ socialImage | url | absoluteUrl(site.url) }}"/>
+        {% if description %}
+            <meta name="description" content="{{ description | escape  }}">
+            <meta property="og:description" content="{{ description | escape }}">
+            <meta name="twitter:description" content="{{ description | escape }}">
         {% endif %}
         
 
