@@ -2,7 +2,7 @@
 @use '../site/scss/variables.scss' as v;
 
 body {
-    background-color: v.$color-background;
+    background-color: var(--theme-color-bg);
     max-width: 100%;
     overflow-x: hidden;
     display: flex;
@@ -12,11 +12,11 @@ body {
     > header {
         $bottom-spacing: 3rem;
 
-        background-color: v.$color-header;
+        background-color: var(--theme-color-surface);
         width: 100%;
 
         .border {
-            border-top: 1px solid #333333;
+            border-top: 1px solid var(--theme-color-border);
         }
         .container {
             max-width: 900px;
@@ -34,7 +34,7 @@ body {
 
                 &:hover {
                     h1 {
-                        color: color.adjust(v.$header-logo-color, $lightness: 10%);
+                        color: var(--theme-color-brand-focus);
                         transition: color 0.2s;
                     }
                 }
@@ -44,7 +44,7 @@ body {
                     font-size: 2rem;
                     font-family: v.$header-logo-font;
                     font-weight: 700;
-                    color: v.$header-logo-color;
+                    color: var(--theme-color-brand-primary);
                 }
             }
         }
@@ -62,7 +62,7 @@ body {
             span,
             span:before,
             span:after {
-                background: v.$color-text;
+                background: var(--theme-color-text);
                 display: block;
                 height: 2px;
                 opacity: 1;
@@ -128,14 +128,14 @@ body {
 
                     a {
                         text-decoration: none;
-                        color: v.$header-nav-color;
+                        color: var(--theme-color-text-link);
                         display: inline-block;
                         padding: 5px;
+                        font-weight: normal;
                         
                         &:hover {
-                            color: v.$color-accent;
+                            color: var(--theme-color-text-link-hover);
                             transition: color 0.2s;
-                            text-decoration: none;
                         }
                     }
                 }
@@ -179,7 +179,7 @@ body {
                 transition: all .3s ease-in-out;
                 padding-top: 75px;
                 padding-right: 20px;
-                background-color: v.$color-background;
+                background-color: var(--theme-color-surface);
                 box-shadow: 0px 0px 15px -3px rgba(0,0,0,0.1);
 
                 &.overlay {
@@ -217,7 +217,7 @@ body {
             .description {
                 text-align: center;
                 margin: 0 0 2rem 0;
-                color: color.adjust(color.scale(v.$color-text, $saturation: -50%), $lightness: 20%);
+                color: var(--theme-color-text-muted);
                 font-family: v.$font-primary;
                 font-size: 1.2rem;
             }

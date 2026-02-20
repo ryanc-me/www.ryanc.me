@@ -3,7 +3,7 @@
 
 .--tag-flag {
     display: inline-block;
-    background-color: color.adjust(v.$color-background, $lightness: 5%);
+    color: var(--theme-color-text-inverse);
     border-radius: 3px;
     padding: 0 0.5rem 0.2rem 0.5rem;
     font-family: v.$font-primary;
@@ -17,6 +17,6 @@
     .tag-name {
         font-size: 0.7rem;
         text-decoration: none;
-        color: v.$color-background;
+        color: var(--theme-color-background);
     }
 }

@@ -10,13 +10,13 @@ article.--post-permalink {
         justify-content: flex-start;
 
         .date {
-            color: color.scale(v.$color-text, $lightness: 20%);
+            color: var(--theme-color-text-muted);
             font-size: 1.1rem;
             font-family: v.$font-primary;
             font-weight: 400;
         }
         .read-time {
-            color: color.scale(v.$color-text, $lightness: 20%);
+            color: var(--theme-color-text-muted);
             font-size: 1.1rem;
             font-family: v.$font-primary;
         }

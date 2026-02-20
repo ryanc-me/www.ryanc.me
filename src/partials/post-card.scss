@@ -2,37 +2,35 @@
 @use '../site/scss/variables.scss' as v;
 
 $font-size: 1.1rem;
-$color-text: v.$color-text;
-$color-date: color.adjust($color-text, $lightness: -10%);
-$color-line: color.adjust($color-text, $lightness: -10%);
-$color-title: color.adjust($color-text, $lightness: -5%);
 
 .--post-card {
     display: flex;
     flex-direction: row;
     align-items: center;
-    column-gap: 15px;
+    column-gap: 5px;
     text-decoration: none;
+    color: var(--theme-color-text);
+    padding: 10px;
+    border-radius: 5px;
+    line-height: 100%;
 
     &:hover {
         text-decoration: none;
+        transition: background-color 0.2s;
+        background-color: var(--theme-color-surface-raised);
+
         .date {
-            color: $color-date;
+            color: var(--theme-color-text-muted);
             transition: color 0.2s;
-        }
-        .separator {
-            background-color: $color-line;
-            transition: background-color 0.2s;
         }
         .title {
-            color: $color-title;
+            color: var(--theme-color-text-link-hover);
             transition: color 0.2s;
-            text-decoration: underline;
         }
     }
 
     .date {
-        color: color.scale($color-date, $lightness: -20%);
+        color: var(--theme-color-text-muted),;
         font-size: $font-size;
         font-family: v.$font-primary;
         font-weight: 400;
@@ -40,8 +38,8 @@ $color-title: color.adjust($color-text, $lightness: -5%);
         flex-shrink: 0;
     }
     .separator {
-        background-color: color.scale($color-line, $lightness: -20%);
-        height: 1px;
+        background-color: var(--theme-color-text);
+        height: 0.05rem;
 
         &.left {
             flex-basis: 20px;
@@ -54,11 +52,12 @@ $color-title: color.adjust($color-text, $lightness: -5%);
         }
     }
     .title {
-        color: color.scale($color-title, $lightness: -10%);
+        color: var(--theme-color-text-link);
         margin: 0;
         display: inline-block;
         font-family: v.$font-secondary;
         font-size: $font-size;
+        font-weight: 500;
     }
     .tags {
         // &> span:first-child {
@@ -69,14 +68,15 @@ $color-title: color.adjust($color-text, $lightness: -5%);
     @media screen and (max-width: v.$media-size-small) {
         flex-wrap: wrap;
         justify-content: flex-start;
-        margin-bottom: 30px;
+        margin-bottom: 0.5rem;
 
         .title {
             order: 1;
 
             flex-basis: 100%;
             margin-bottom: 10px;
-            font-size: 1.5rem;
+            font-size: 1.25rem;
+            line-height: 100%;
         }
         .tags {
             order: 2;
