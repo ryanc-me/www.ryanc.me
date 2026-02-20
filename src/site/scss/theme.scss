@@ -4,32 +4,11 @@ $font-primary: 'Work Sans', sans-serif;
 $font-secondary: 'Inter', sans-serif;
 $font-accent: 'Red Hat Display', sans-serif;
 
-// $color-background: #FFFFFE;
-// $color-text: #181925;
-// $color-heading: #D6F9DD;
-// $color-accent: #FF0022;
-// $color-cta: #3E1929;
-
-$color-background: #1A1F16;
-// $color-text: color.adjust(#EDE7E3, $lightness: -5%);
-$color-text: #E7DFDA;
-$color-heading: #EDE7E3;
-$color-accent: #607B7D;
-$color-links: #BD82ED;
-$color-cta: #FFA62B;
-
-$header-logo-color: $color-accent;
-$header-logo-font: $font-accent;
-
-$header-nav-color: $color-text;
-$header-nav-font: $font-accent;
-
-$color-header: $color-background;
-
-$media-size-large: 992px;
-$media-size-medium: 768px;
-$media-size-small: 576px;
-
+:root {
+    --font-ui: 'Red Hat Display', sans-serif;
+    --font-body: 'Work Sans', sans-serif;
+    --font-heading: 'Work Sans', sans-serif;
+}
 
 // base theme colors
 $theme-color0: #111111;
@@ -50,12 +29,12 @@ $theme-dark-color-text-muted: $theme-color2;
 $theme-dark-color-text-inverse: $theme-color0;
 $theme-dark-color-text-link: mix($theme-color1, #ffffff, 80%);
 $theme-dark-color-text-link-hover: mix($theme-color1, #ffffff, 40%);
-$theme-dark-color-text-heading: $theme-color3;
+$theme-dark-color-text-heading: mix($theme-color1, $theme-color3, 30%);
 
-$theme-dark-color-brand-primary: $theme-dark-color-text-link;
-$theme-dark-color-brand-primary-contrast: mix($theme-color3, #ffffff, 90%);
+$theme-dark-color-brand-primary: mix($theme-color1, $theme-color3, 80%);
+$theme-dark-color-brand-primary-contrast: mix($theme-color3, #ffffff, 20%);
 $theme-dark-color-brand-accent: $theme-color2;
-$theme-dark-color-brand-focus: $theme-dark-color-text-link-hover;
+$theme-dark-color-brand-focus: mix($theme-dark-color-brand-primary, #ffffff, 40%);;
 
 $theme-dark-color-success: mix(#22c55e, $theme-dark-color-bg, 25%);
 $theme-dark-color-warning: mix(#f59e0b, $theme-dark-color-bg, 30%);
@@ -70,7 +49,7 @@ $theme-light-color-surface-raised: $theme-dark-color-surface-raised;
 $theme-light-color-border: $theme-dark-color-border;
 
 $theme-light-color-text: $theme-dark-color-text;
-$theme-light-color-text-muted: $theme-dark-color-text-muted;
+$theme-light-color-text-muted: $theme-dark-color-text-muted; 
 $theme-light-color-text-inverse: $theme-dark-color-text-inverse;
 $theme-light-color-text-link: $theme-dark-color-text-link;
 $theme-light-color-text-link-hover: $theme-dark-color-text-link-hover;
@@ -88,6 +67,7 @@ $theme-light-color-info: $theme-dark-color-info;
 
 :root {
     color-scheme: dark light;
+
     --theme-color-bg: light-dark(#{$theme-light-color-bg}, #{$theme-dark-color-bg});
     --theme-color-surface: light-dark(#{$theme-light-color-surface}, #{$theme-dark-color-surface});
     --theme-color-surface-raised: light-dark(#{$theme-light-color-surface-raised}, #{$theme-dark-color-surface-raised});

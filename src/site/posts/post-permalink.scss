@@ -1,5 +1,4 @@
 @use "sass:color";
-@use '../scss/variables.scss' as v;
 
 article.--post-permalink {
     .meta {
@@ -9,16 +8,11 @@ article.--post-permalink {
         column-gap: 15px;
         justify-content: flex-start;
 
-        .date {
+        .date, .read-time {
             color: var(--theme-color-text-muted);
             font-size: 1.1rem;
-            font-family: v.$font-primary;
+            font-family: var(--font-ui);
             font-weight: 400;
-        }
-        .read-time {
-            color: var(--theme-color-text-muted);
-            font-size: 1.1rem;
-            font-family: v.$font-primary;
         }
     }
 }

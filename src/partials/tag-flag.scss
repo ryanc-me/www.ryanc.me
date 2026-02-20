@@ -1,12 +1,11 @@
 @use "sass:color";
-@use '../site/scss/variables.scss' as v;
 
 .--tag-flag {
     display: inline-block;
     color: var(--theme-color-text-inverse);
     border-radius: 3px;
     padding: 0 0.5rem 0.2rem 0.5rem;
-    font-family: v.$font-primary;
+    font-family: var(--font-ui);
     font-weight: 600;
     line-height: initial;
 

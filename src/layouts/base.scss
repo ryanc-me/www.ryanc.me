@@ -1,5 +1,4 @@
 @use "sass:color";
-@use '../site/scss/variables.scss' as v;
 
 body {
     background-color: var(--theme-color-bg);
@@ -42,8 +41,8 @@ body {
                     margin: 0;
                     padding: 0;
                     font-size: 2rem;
-                    font-family: v.$header-logo-font;
-                    font-weight: 700;
+                    font-family: var(--font-heading);
+                    font-weight: 600;
                     color: var(--theme-color-brand-primary);
                 }
             }
@@ -117,8 +116,7 @@ body {
                 list-style: none;
                 padding: 0;
                 margin: 0;
-                font-family: v.$header-nav-font;
-                font-weight: 700;
+                font-family: var(--font-heading);
                 font-size: 1.2rem;
 
                 li {
@@ -128,20 +126,20 @@ body {
 
                     a {
                         text-decoration: none;
-                        color: var(--theme-color-text-link);
+                        color: var(--theme-color-brand-primary);
                         display: inline-block;
                         padding: 5px;
-                        font-weight: normal;
+                        font-weight: 500;
                         
                         &:hover {
-                            color: var(--theme-color-text-link-hover);
+                            color: var(--theme-color-brand-focus);
                             transition: color 0.2s;
                         }
                     }
                 }
             }
         }
-        @media screen and (max-width: v.$media-size-medium) {
+        @media screen and (max-width: 768px) {
             .container {
                 margin: 1rem auto 1rem auto;
                 align-items: center;
@@ -218,7 +216,7 @@ body {
                 text-align: center;
                 margin: 0 0 2rem 0;
                 color: var(--theme-color-text-muted);
-                font-family: v.$font-primary;
+                font-family: var(--font-body);
                 font-size: 1.2rem;
             }
         }

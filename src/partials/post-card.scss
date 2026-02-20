@@ -1,5 +1,4 @@
 @use "sass:color";
-@use '../site/scss/variables.scss' as v;
 
 $font-size: 1.1rem;
 
@@ -32,7 +31,7 @@ $font-size: 1.1rem;
     .date {
         color: var(--theme-color-text-muted),;
         font-size: $font-size;
-        font-family: v.$font-primary;
+        font-family: var(--font-ui);
         font-weight: 400;
         flex-basis: 110px;
         flex-shrink: 0;
@@ -55,7 +54,7 @@ $font-size: 1.1rem;
         color: var(--theme-color-text-link);
         margin: 0;
         display: inline-block;
-        font-family: v.$font-secondary;
+        font-family: var(--font-title);
         font-size: $font-size;
         font-weight: 500;
     }
@@ -65,7 +64,7 @@ $font-size: 1.1rem;
         // }
     }
 
-    @media screen and (max-width: v.$media-size-small) {
+    @media screen and (max-width: 576px) {
         flex-wrap: wrap;
         justify-content: flex-start;
         margin-bottom: 0.5rem;
