@@ -63,28 +63,28 @@ $theme-dark-color-danger: mix(#ef4444, $theme-dark-color-bg, 28%);
 $theme-dark-color-info: mix(#3b82f6, $theme-dark-color-bg, 28%);
 
 
-// light theme
-$theme-light-color-bg: #111;
-$theme-light-color-surface: #111;
-$theme-light-color-surface-raised: #111;
-$theme-light-color-border: #111;
+// light theme (for now, just a copy of dark)
+$theme-light-color-bg: $theme-dark-color-bg;
+$theme-light-color-surface: $theme-dark-color-surface;
+$theme-light-color-surface-raised: $theme-dark-color-surface-raised;
+$theme-light-color-border: $theme-dark-color-border;
 
-$theme-light-color-text: #111;
-$theme-light-color-text-muted: #111;
-$theme-light-color-text-inverse: #111;
-$theme-light-color-text-link: #111;
-$theme-light-color-text-link-hover: #111;
-$theme-light-color-text-heading: #111;
+$theme-light-color-text: $theme-dark-color-text;
+$theme-light-color-text-muted: $theme-dark-color-text-muted;
+$theme-light-color-text-inverse: $theme-dark-color-text-inverse;
+$theme-light-color-text-link: $theme-dark-color-text-link;
+$theme-light-color-text-link-hover: $theme-dark-color-text-link-hover;
+$theme-light-color-text-heading: $theme-dark-color-text-heading;
 
-$theme-light-color-brand-primary: #111;
-$theme-light-color-brand-primary-contrast: #111;
-$theme-light-color-brand-accent: #111;
-$theme-light-color-brand-focus: #111;
+$theme-light-color-brand-primary: $theme-dark-color-brand-primary;
+$theme-light-color-brand-primary-contrast: $theme-dark-color-brand-primary-contrast;
+$theme-light-color-brand-accent: $theme-dark-color-brand-accent;
+$theme-light-color-brand-focus: $theme-dark-color-brand-focus;
 
-$theme-light-color-success: #111;
-$theme-light-color-warning: #111;
-$theme-light-color-danger: #111;
-$theme-light-color-info: #111;
+$theme-light-color-success: $theme-dark-color-success;
+$theme-light-color-warning: $theme-dark-color-warning;
+$theme-light-color-danger: $theme-dark-color-danger;
+$theme-light-color-info: $theme-dark-color-info;
 
 :root {
     color-scheme: dark light;
