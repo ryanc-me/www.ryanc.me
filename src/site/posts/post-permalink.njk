@@ -34,7 +34,7 @@ permalink: '{{ post.url }}'
                         {%- endfor -%}
                     </span>
                 {% endif %}
-                <span class="date">{{ post.published_at | readableDate }}</span>
+                <span class="date">{{ post.published_at | isoDate }}</span>
                 <span class="read-time">{{ post.html | readingTime }}</span>
             </div>
             <section class="content-body load-external-scripts line-numbers">

@@ -4,7 +4,7 @@
     <a class="--post-card" href="{{ post.url }}">
         <div class="line"></div>
         <div class="date">
-            {{ post.published_at | readableDate }}
+            <span>{{ post.published_at | isoDate }}</span>
         </div>
         <h2 class="title">
             <span>{{ post.title }}</span>
