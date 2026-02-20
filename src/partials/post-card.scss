@@ -9,23 +9,31 @@ $font-size: 1.1rem;
     column-gap: 5px;
     text-decoration: none;
     color: var(--theme-color-text);
-    padding: 10px;
+    padding: 5px;
     border-radius: 5px;
     line-height: 100%;
+    position: relative;
 
     &:hover {
         text-decoration: none;
         transition: background-color 0.2s;
         background-color: var(--theme-color-surface-raised);
 
-        .date {
-            color: var(--theme-color-text-muted);
+        .date, .title>span, .tags {
             transition: color 0.2s;
-        }
-        .title {
+            transition: background-color 0.2s;
+            background-color: var(--theme-color-surface-raised);
             color: var(--theme-color-text-link-hover);
-            transition: color 0.2s;
         }
+    }
+
+    .line {
+        background-color: var(--theme-color-text-muted);
+        height: 0.05rem;
+        left: 15px;
+        right: 15px;;
+        position: absolute;
+        z-index: 1;
     }
 
     .date {
@@ -35,20 +43,10 @@ $font-size: 1.1rem;
         font-weight: 400;
         flex-basis: 110px;
         flex-shrink: 0;
-    }
-    .separator {
-        background-color: var(--theme-color-text);
-        height: 0.05rem;
-
-        &.left {
-            flex-basis: 20px;
-            flex-shrink: 0;
-        }
-        &.right {
-            flex-basis: 20px;
-            flex-shrink: 0;
-            flex-grow: 1;
-        }
+        margin-right: 10px;
+        padding: 5px;
+        background-color: var(--theme-color-bg);
+        z-index: 10;
     }
     .title {
         color: var(--theme-color-text-link);
@@ -57,11 +55,21 @@ $font-size: 1.1rem;
         font-family: var(--font-title);
         font-size: $font-size;
         font-weight: 500;
+        z-index: 10;
+
+        >span {
+            -webkit-box-decoration-break: clone;
+            box-decoration-break: clone;
+            padding: 0 5px;
+            background-color: var(--theme-color-bg);
+        }
     }
     .tags {
-        // &> span:first-child {
-        //     margin-left: 20px;
-        // }
+        padding: 5px;
+        background-color: var(--theme-color-bg);
+        margin-left: auto;
+        z-index: 10;
+        flex-shrink: 0;
     }
 
     @media screen and (max-width: 576px) {
@@ -69,6 +77,9 @@ $font-size: 1.1rem;
         justify-content: flex-start;
         margin-bottom: 0.5rem;
 
+        .line {
+            display: none;
+        }
         .title {
             order: 1;
 
@@ -79,14 +90,12 @@ $font-size: 1.1rem;
         }
         .tags {
             order: 2;
+            margin-left: 0;
         }
         .date {
             order: 3;
 
             flex-basis: auto;
-        }
-        .separator {
-            display: none;
         }
     }
 }

@@ -2,7 +2,7 @@
 
 .--tag-flag {
     display: inline-block;
-    color: var(--theme-color-text-inverse);
+    color: #ffffff;
     border-radius: 3px;
     padding: 0 0.5rem 0.2rem 0.5rem;
     font-family: var(--font-ui);
@@ -10,7 +10,7 @@
     line-height: initial;
 
     &:not(:last-child) {
-        margin-right: 0.5rem;
+        margin-right: 0.4rem;
     }
 
     .tag-name {

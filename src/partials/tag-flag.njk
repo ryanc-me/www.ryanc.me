@@ -1,5 +1,9 @@
 {%- macro tag_flag(tag, link=false) -%}
     <span class="--tag-flag" style="background-color: {{ tag.accent_color }}">
-        <span class="tag-name" href="{{ tag.url }}">{{ tag.slug }}</span>
+        {% if link %}
+            <a class="tag-name" href="{{ tag.url }}">{{ tag.slug }}</a>
+        {% else %}
+            <span class="tag-name">{{ tag.slug }}</span>
+        {% endif %}
     </span>
 {%- endmacro -%}
