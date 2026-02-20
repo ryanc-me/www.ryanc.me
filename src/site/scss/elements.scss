@@ -168,21 +168,21 @@ table {
 
 .kg-callout-card {
     background-color: var(--theme-color-surface);
-    border-left: var(--theme-color-accent);
+    border-left: 4px solid var(--theme-color-brand-primary);
     padding: 1rem;
     margin: 1.5rem 0;
 
+    &.kg-callout-card-white {
+        background-color: var(--theme-color-surface);
+    }
     &.kg-callout-card-blue {
-        $color: #152831;
-        background-color: $color;
+        background-color: #152831;
     }
     &.kg-callout-card-grey {
-        $color: #24272a;
-        background-color: $color;
+        background-color: #24272a;
     }
     &.kg-callout-card-green {
-        $color: #182a1e;
-        background-color: $color;
+        background-color: #182a1e;
     }
 
     .kg-callout-emoji {

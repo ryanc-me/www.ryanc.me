@@ -29,7 +29,7 @@ $theme-dark-color-text: mix($theme-color1, #ffffff, 20%);
 $theme-dark-color-text-muted: $theme-color2;
 $theme-dark-color-text-inverse: $theme-color0;
 $theme-dark-color-text-link: mix($theme-color1, #ffffff, 80%);
-$theme-dark-color-text-link-hover: mix($theme-color1, #ffffff, 40%);
+$theme-dark-color-text-link-hover: mix($theme-color1, #0000ff, 80%);
 $theme-dark-color-text-heading: mix($theme-color1, $theme-color3, 50%);
 
 $theme-dark-color-brand-primary: mix($theme-color1, $theme-color3, 80%);

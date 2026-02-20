@@ -16,19 +16,23 @@ $font-size: 1.1rem;
 
     &:hover {
         text-decoration: none;
-        transition: background-color 0.2s;
+        transition: background-color 0.1s;
         background-color: var(--theme-color-surface-raised);
 
-        .date, .title>span, .tags {
-            transition: color 0.2s;
-            transition: background-color 0.2s;
+        .date>span, .title>span, .tags {
+            transition: color 0.1s;
+            transition: background-color 0.1s;
             background-color: var(--theme-color-surface-raised);
             color: var(--theme-color-text-link-hover);
+        }
+        .date>span {
+            color: var(--theme-color-text-muted);
         }
     }
 
     .line {
         background-color: var(--theme-color-text-muted);
+        opacity: 0.5;
         height: 0.05rem;
         left: 15px;
         right: 15px;;
@@ -37,16 +41,19 @@ $font-size: 1.1rem;
     }
 
     .date {
-        color: var(--theme-color-text-muted),;
+        color: var(--theme-color-text-muted);
         font-size: $font-size;
         font-family: var(--font-ui);
         font-weight: 400;
         flex-basis: 110px;
         flex-shrink: 0;
         margin-right: 10px;
-        padding: 5px;
-        background-color: var(--theme-color-bg);
         z-index: 10;
+
+        >span {
+            padding: 0 5px;
+            background-color: var(--theme-color-bg);
+        }
     }
     .title {
         color: var(--theme-color-text-link);
